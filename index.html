@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Album Aesthetic</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Poppins',sans-serif;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  color:white;
+  overflow-x:hidden;
+}
+
+/* BACKGROUND VIDEO */
+video{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  z-index:-2;
+}
+.overlay{
+  background:rgba(0,0,0,0.45);
+  min-height:100vh;
+}
+
+/* HEADER */
+header{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+header h1{
+  font-size:2.5rem;
+  letter-spacing:1px;
+}
+
+.typing{
+  margin-top:10px;
+  border-right:2px solid white;
+  white-space:nowrap;
+  overflow:hidden;
+}
+
+button,input{
+  margin-top:10px;
+  padding:10px 15px;
+  border:none;
+  border-radius:12px;
+  outline:none;
+}
+
+button{
+  background:linear-gradient(135deg,#ff758f,#ff4d6d);
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.05);
+}
+
+/* GALLERY */
+section{
+  padding:40px 15px;
+}
+
+.title{
+  text-align:center;
+  font-size:1.8rem;
+  margin-bottom:20px;
+}
+
+
+
+.photo{
+  position:relative;
+  border-radius:18px;
+  overflow:hidden;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+  transform:translateY(40px);
+  opacity:0;
+  transition:0.6s ease;
+}
+
+.photo.active{
+  transform:translateY(0);
+  opacity:1;
+}
+
+.photo img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  display:block;
+  transition:0.4s;
+}
+
+.photo:hover img{
+  transform:scale(1.1);
+}
+
+.photo::after{
+  content:"❤";
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(0);
+  font-size:28px;
+  transition:0.3s;
+}
+
+.photo:hover::after{
+  transform:translate(-50%,-50%) scale(1);
+}
+
+/* FLOAT HEARTS */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  animation:floatUp linear forwards;
+  pointer-events:none;
+}
+
+@keyframes floatUp{
+  0%{transform:translateY(0);opacity:1}
+  100%{transform:translateY(-100vh);opacity:0}
+}
+
+/* PASSWORD LOCK */
+#lock{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:black;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:10;
+}
+
+#lock h2{
+  margin-bottom:10px;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:20px;
+  color:white;
+}
+body {
+  margin: 0;
+  background: #eae7e3;
+  font-family: serif;
+}
+
+.album {
+  text-align: center;
+  padding: 15px;
+}
+
+h1 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #6d5c54;
+}
+
+/* SLIDER */
+.slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+/* EACH PAGE */
+.slide {
+  min-width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  scroll-snap-align: start;
+}
+
+/* WHITE ALBUM PAGE */
+.layout {
+  background: #fff;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* DIFFERENT PAGE LAYOUTS */
+
+/* Layout 1 (2 images) */
+.layout-1 img {
+  width: 100%;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+/* Layout 2 (grid style) */
+.layout-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+
+.layout-2 img:nth-child(1) {
+  grid-column: span 2;
+}
+
+.layout-2 img {
+  width: 100%;
+  border-radius: 4px;
+}
+
+/* Layout 3 (full image) */
+.layout-3 img {
+  width: 100%;
+  border-radius: 4px;
+}
+.upload-box {
+  margin: 15px;
+}
+
+.upload-box input {
+  display: none;
+}
+
+.upload-box label {
+  background: #d6c3b3;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PASSWORD -->
+<div id="lock">
+  <h2>Enter Password 💌</h2>
+  <input type="password" id="pass" placeholder="Enter password">
+  <button onclick="unlock()">Unlock</button>
+</div>
+
+<!-- VIDEO BACKGROUND -->
+<video autoplay muted loop>
+  <source src="video.mp4" type="video/mp4">
+</video>
+
+<div class="overlay">
+
+<header>
+  <h1>My Love Album ❤️</h1>
+  <div class="typing" id="typing"></div>
+  <button onclick="toggleMusic()">Play Music 🎶</button>
+  <div class="upload-box">
+  <input type="file" id="upload" accept="image/*" multiple>
+  <label for="upload">+ Add Photos</label>
+</div>
+</header>
+
+<section class="album">
+  <h1>Our memories 🤍</h1><br>
+
+  <div class="slider" id="slider">
+    
+    <!-- PAGE 1 -->
+    <div class="slide">
+      <div class="layout layout-1">
+        <img src="https://res.cloudinary.com/dt5uo1lnl/image/upload/v1775148960/img1_hv9vye.jpg">
+        <img src="https://res.cloudinary.com/dt5uo1lnl/image/upload/v1775149025/img2_kyybok.jpg">
+      </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="slide">
+      <div class="layout layout-2">
+        <img src="https://res.cloudinary.com/dt5uo1lnl/image/upload/v1775149084/img3_ds7ild.jpg">
+        <img src="https://res.cloudinary.com/dt5uo1lnl/image/upload/v1775149085/img4_b893ui.jpg">
+        <img src="https://res.cloudinary.com/dt5uo1lnl/image/upload/v1775149084/img5_zbdlog.jpg">
+      </div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="slide">
+      <div class="layout layout-3">
+        <img src="https://res.cloudinary.com/dt5uo1lnl/image/upload/v1775149084/img6_gbffjr.jpg">
+      </div>
+    </div>
+    <!-- PAGE 4 -->
+    <div class="slide">
+      <div class="layout layout-1">
+        <img src="https://res.cloudinary.com/dt5uo1lnl/image/upload/v1775149085/img7_tcfajo.jpg">
+        <img src="https://res.cloudinary.com/dt5uo1lnl/image/upload/v1775149085/img9_fulfii.jpg">
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<footer>Made with Vuth Vireak❤️</footer>
+
+</div>
+
+<audio id="music" loop>
+  <source src="https://res.cloudinary.com/dt5uo1lnl/video/upload/v1775149086/song_hvgvl0.mp3" type="audio/mp3">
+</audio>
+
+<script>
+// PASSWORD
+function unlock(){
+  const p=document.getElementById('pass').value;
+  if(p==='1'){
+    document.getElementById('lock').style.display='none';
+    document.getElementById('music').play();
+  } else alert('Wrong password');
+}
+
+// TYPING
+const text="Every moment with you feels magical ❤️";
+let i=0;
+function typing(){
+  if(i<text.length){
+    document.getElementById('typing').innerHTML+=text.charAt(i);
+    i++;
+    setTimeout(typing,50);
+  }
+}
+typing();
+
+// UPLOAD
+const upload = document.getElementById("upload");
+const slider = document.getElementById("slider");
+
+upload.addEventListener("change", function () {
+  const files = Array.from(this.files);
+
+  for (let i = 0; i < files.length; i += 3) {
+    const group = files.slice(i, i + 3);
+
+    const slide = document.createElement("div");
+    slide.className = "slide";
+
+    const layout = document.createElement("div");
+
+    // choose layout based on number of images
+    if (group.length === 1) layout.className = "layout layout-3";
+    else if (group.length === 2) layout.className = "layout layout-1";
+    else layout.className = "layout layout-2";
+
+    group.forEach(file => {
+      const img = document.createElement("img");
+      img.src = URL.createObjectURL(file);
+      layout.appendChild(img);
+    });
+
+    slide.appendChild(layout);
+    slider.appendChild(slide);
+  }
+});
+
+// SCROLL ANIMATION
+window.addEventListener('scroll',()=>{
+  document.querySelectorAll('.photo').forEach(photo=>{
+    const top=photo.getBoundingClientRect().top;
+    if(top<window.innerHeight*0.85){
+      photo.classList.add('active');
+    }
+  });
+});
+
+// FLOAT HEART
+setInterval(()=>{
+  const h = document.createElement('div');
+  h.classList.add('heart');
+
+  // Random heart emoji
+  const hearts = ['❤','💖','💕','💗','💓','💘'];
+  h.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
+
+  // Random position
+  h.style.left = Math.random()*100 + 'vw';
+
+  // Random size
+  const size = Math.random()*20 + 10;
+  h.style.fontSize = size + 'px';
+
+  // Random color
+  const colors = ['#ff4d6d','#ff758f','#ff8fa3','#ffb3c6','#ffc2d1'];
+  h.style.color = colors[Math.floor(Math.random()*colors.length)];
+
+  // Random animation duration
+  const duration = Math.random()*3 + 4;
+  h.style.animationDuration = duration + 's';
+
+  document.body.appendChild(h);
+
+  setTimeout(()=>h.remove(), duration*1000);
+},300);
+
+// MUSIC TOGGLE
+function toggleMusic(){
+  const music=document.getElementById('music');
+  if(music.paused){music.play();}else{music.pause();}
+}
+
+function openBook(){
+  document.getElementById('bookCover').style.display='none';
+  document.getElementById('bookPages').style.display='block';
+}
+
+function flipPage(page){
+  page.classList.toggle('flipped');
+}
+</script>
+
+</body>
+</html>
